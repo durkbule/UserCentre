@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lyt.usercentre.webapi.dao.UserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.lyt.usercentre.webapi.entity.UserEntity" id="userMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="tel" column="tel"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="appId" column="app_id"/>
+        <result property="appName" column="app_name"/>
+        <result property="addTime" column="add_time"/>
+        <result property="salt" column="salt"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="queryByUserName" resultType="com.lyt.usercentre.webapi.entity.UserEntity">
+		select * from usercentre_user where username = #{username}
+	</select>
+
+    <select id="queryByUserTel" resultType="com.lyt.usercentre.webapi.entity.UserEntity">
+		select * from usercentre_user where tel = #{tel}
+	</select>
+
+    <select id="queryByUserId" resultMap="userMap">
+		select * from usercentre_user where user_id = #{userId}
+	</select>
+
+
+
+</mapper>

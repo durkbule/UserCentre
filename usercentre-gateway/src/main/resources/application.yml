@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: baidu_root
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url,baidu
+
+        - id: qq_root
+          uri: https://www.qq.com
+          predicates:
+            - Query=url,qq
+
+        - id: approval_root
+          uri: lb://usercentre-approval
+          predicates:
+            - Path=/api/approval/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+
+        - id: webapi_root
+          uri: lb://usercentre-webapi
+          predicates:
+            - Path=/api/webapi/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+
+        - id: admin_root
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
+
